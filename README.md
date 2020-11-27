@@ -1,1 +1,1 @@
-# Birthdays
+# React native cocktails app
