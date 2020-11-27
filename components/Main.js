@@ -1,12 +1,24 @@
-import React, { Component } from "react";
+import React, { useEffect, useState, Component } from "react";
 import { View, FlatList, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import Header from "./Header";
 
 const Main = () => {
 
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/api/cocktail')
+            .then((response) => response.json())
+            .then((json) => setData(json))
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false));
+    }, []);
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Coming soon</Text>
+            {isLoading ? <Text>loading</Text> : (
+                <Text>{data.strDrink}</Text>
+            )}
         </View>
     );
 };
